@@ -1,0 +1,18 @@
+{
+  "name": "compute-paradigms",
+  "version": "1.0.0",
+  "description": "Reveal.js presentation on Compute Paradigms",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "reveal.js": "^5.2.1",
+    "vite": "^7.3.1"
+  }
+}
