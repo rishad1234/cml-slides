@@ -12,13 +12,14 @@
       @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
       
       :root {
-        --terminal-green: #00ff00;
-        --terminal-dim: #00aa00;
-        --terminal-bg: #0a0a0a;
-        --terminal-cyan: #00ffff;
-        --terminal-yellow: #ffff00;
-        --terminal-red: #ff5555;
-        --terminal-magenta: #ff55ff;
+        --terminal-green: #0a6e0a;
+        --terminal-dim: #666666;
+        --terminal-bg: #ffffff;
+        --terminal-cyan: #0077aa;
+        --terminal-yellow: #aa7700;
+        --terminal-red: #cc3333;
+        --terminal-magenta: #8800aa;
+        --terminal-dark: #1a1a1a;
       }
       
       .reveal {
@@ -29,12 +30,11 @@
       .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
         font-family: 'Fira Code', monospace;
         text-transform: none;
-        color: var(--terminal-green);
-        text-shadow: 0 0 10px var(--terminal-green);
+        color: var(--terminal-dark);
       }
       
       .reveal p, .reveal li, .reveal td, .reveal th {
-        color: var(--terminal-green);
+        color: var(--terminal-dark);
       }
       
       .reveal .dim {
@@ -57,6 +57,10 @@
         color: var(--terminal-magenta);
       }
       
+      .reveal .green {
+        color: var(--terminal-green);
+      }
+      
       .reveal .prompt::before {
         content: "$ ";
         color: var(--terminal-cyan);
@@ -77,19 +81,18 @@
       }
       
       .reveal .terminal-box {
-        background: #1a1a1a;
-        border: 1px solid var(--terminal-green);
+        background: #f5f5f5;
+        border: 2px solid var(--terminal-dark);
         border-radius: 5px;
         padding: 20px;
         text-align: left;
-        box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
       }
       
       .reveal .terminal-header {
-        background: #333;
+        background: #e0e0e0;
         margin: -20px -20px 15px -20px;
         padding: 8px 15px;
-        border-radius: 5px 5px 0 0;
+        border-radius: 3px 3px 0 0;
         display: flex;
         gap: 8px;
       }
@@ -107,7 +110,7 @@
       .reveal table {
         border-collapse: collapse;
         font-size: 0.7em;
-        border: 1px solid var(--terminal-dim);
+        border: 2px solid var(--terminal-dark);
       }
       
       .reveal th, .reveal td {
@@ -116,7 +119,7 @@
       }
       
       .reveal th {
-        background: #1a1a1a;
+        background: #f0f0f0;
       }
       
       .reveal small {
@@ -126,7 +129,7 @@
       .reveal .ascii-art {
         font-size: 0.5em;
         line-height: 1.2;
-        color: var(--terminal-dim);
+        color: var(--terminal-dark);
       }
       
       .reveal em {
@@ -165,6 +168,14 @@
       
       .reveal table {
         margin: 0 auto;
+      }
+      
+      /* Print styles */
+      @media print {
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
       }
     </style>
   </head>
@@ -254,71 +265,68 @@
 
         <!-- EC2 -->
         <section>
-          <section>
-            <h2>$ man ec2</h2>
-            <div class="terminal-box">
-              <p><strong>NAME</strong></p>
-              <p style="margin-left: 20px;">ec2 - Elastic Compute Cloud</p>
-              <br>
-              <p><strong>DESCRIPTION</strong></p>
-              <p style="margin-left: 20px;" class="dim">"Here's a computer. Good luck."</p>
-            </div>
-          </section>
-          <section>
-            <h2>$ ec2 --describe</h2>
-            <div class="terminal-box">
-              <p class="fragment"><span class="cyan kv">--control</span> Full (and full responsibility)</p>
-              <p class="fragment"><span class="cyan kv">--patches</span> Your problem</p>
-              <p class="fragment"><span class="cyan kv">--uptime</span> 24/7 (wallet.drain())</p>
-              <p class="fragment"><span class="cyan kv">--use-case</span> "I need SSH, don't ask"</p>
-            </div>
-          </section>
+          <h2>$ man ec2</h2>
+          <div class="terminal-box">
+            <p><strong>NAME</strong></p>
+            <p style="margin-left: 20px;">ec2 - Elastic Compute Cloud</p>
+            <br>
+            <p><strong>DESCRIPTION</strong></p>
+            <p style="margin-left: 20px;" class="dim">"Here's a computer. Good luck."</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>$ ec2 --describe</h2>
+          <div class="terminal-box">
+            <p class="fragment"><span class="cyan kv">--control</span> Full (and full responsibility)</p>
+            <p class="fragment"><span class="cyan kv">--patches</span> Your problem</p>
+            <p class="fragment"><span class="cyan kv">--uptime</span> 24/7 (wallet.drain())</p>
+            <p class="fragment"><span class="cyan kv">--use-case</span> "I need SSH, don't ask"</p>
+          </div>
         </section>
 
         <!-- Lambda -->
         <section>
-          <section>
-            <h2>$ man lambda</h2>
-            <div class="terminal-box">
-              <p><strong>NAME</strong></p>
-              <p style="margin-left: 20px;">lambda - Serverless Functions</p>
-              <br>
-              <p><strong>DESCRIPTION</strong></p>
-              <p style="margin-left: 20px;" class="dim">"Servers exist. You just pretend they don't."</p>
-            </div>
-          </section>
-          <section>
-            <h2>$ lambda --describe</h2>
-            <div class="terminal-box">
-              <p class="fragment"><span class="yellow kv">--billing</span> Per 1ms (seriously)</p>
-              <p class="fragment"><span class="yellow kv">--scale</span> ∞* <span class="dim">(*T&C apply)</span></p>
-              <p class="fragment"><span class="yellow kv">--timeout</span> 15min max, then death</p>
-              <p class="fragment"><span class="yellow kv">--use-case</span> Event-driven, bursty loads</p>
-            </div>
-          </section>
+          <h2>$ man lambda</h2>
+          <div class="terminal-box">
+            <p><strong>NAME</strong></p>
+            <p style="margin-left: 20px;">lambda - Serverless Functions</p>
+            <br>
+            <p><strong>DESCRIPTION</strong></p>
+            <p style="margin-left: 20px;" class="dim">"Servers exist. You just pretend they don't."</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>$ lambda --describe</h2>
+          <div class="terminal-box">
+            <p class="fragment"><span class="yellow kv">--billing</span> Per 1ms (seriously)</p>
+            <p class="fragment"><span class="yellow kv">--scale</span> ∞* <span class="dim">(*T&C apply)</span></p>
+            <p class="fragment"><span class="yellow kv">--timeout</span> 15min max, then death</p>
+            <p class="fragment"><span class="yellow kv">--use-case</span> Event-driven, bursty loads</p>
+          </div>
         </section>
 
         <!-- Fargate -->
         <section>
-          <section>
-            <h2>$ man fargate</h2>
-            <div class="terminal-box">
-              <p><strong>NAME</strong></p>
-              <p style="margin-left: 20px;">fargate - Serverless Containers</p>
-              <br>
-              <p><strong>DESCRIPTION</strong></p>
-              <p style="margin-left: 20px;" class="dim">"docker run, but make it someone else's problem"</p>
-            </div>
-          </section>
-          <section>
-            <h2>$ fargate --describe</h2>
-            <div class="terminal-box">
-              <p class="fragment"><span class="magenta kv">--servers</span> None (for you)</p>
-              <p class="fragment"><span class="magenta kv">--input</span> Your Dockerfile</p>
-              <p class="fragment"><span class="magenta kv">--timeout</span> None. Run forever.</p>
-              <p class="fragment"><span class="magenta kv">--use-case</span> Lambda too short, EC2 too much</p>
-            </div>
-          </section>
+          <h2>$ man fargate</h2>
+          <div class="terminal-box">
+            <p><strong>NAME</strong></p>
+            <p style="margin-left: 20px;">fargate - Serverless Containers</p>
+            <br>
+            <p><strong>DESCRIPTION</strong></p>
+            <p style="margin-left: 20px;" class="dim">"docker run, but make it someone else's problem"</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>$ fargate --describe</h2>
+          <div class="terminal-box">
+            <p class="fragment"><span class="magenta kv">--servers</span> None (for you)</p>
+            <p class="fragment"><span class="magenta kv">--input</span> Your Dockerfile</p>
+            <p class="fragment"><span class="magenta kv">--timeout</span> None. Run forever.</p>
+            <p class="fragment"><span class="magenta kv">--use-case</span> Lambda too short, EC2 too much</p>
+          </div>
         </section>
 
         <!-- Comparison Table -->
@@ -385,37 +393,37 @@
 
         <!-- Stateless vs Stateful Examples -->
         <section>
-          <section>
-            <h2 style="font-size: 1.2em;">$ cat examples/stateless.log</h2>
-            <div class="terminal-box" style="font-size: 0.6em; padding: 12px;">
-              <p class="cyan">// STATELESS: REST API</p>
-              <p class="dim"># Request 1 → Server A</p>
-              <p>GET /api/users/42 → <span class="green">{ id: 42, name: "Bob" }</span></p>
-              <p class="dim"># Request 2 → Server B (different!)</p>
-              <p>GET /api/users/42 → <span class="green">{ id: 42, name: "Bob" }</span></p>
-              <p style="margin-top: 8px;">✓ Token validated each request | ✓ Data from DB | ✓ Any server</p>
-            </div>
-          </section>
-          <section>
-            <h2 style="font-size: 1.2em;">$ cat examples/stateful.log</h2>
-            <div class="terminal-box" style="font-size: 0.6em; padding: 12px;">
-              <p class="yellow">// STATEFUL: WebSocket Game Server</p>
-              <p class="dim"># Connection → Server A</p>
-              <p>WS /game/room/abc</p>
-              <p class="dim">In memory: player, room, inventory</p>
-              <p class="red" style="margin-top: 8px;">✗ Server dies → session lost | ✗ Can't migrate | ✗ Sticky sessions</p>
-            </div>
-          </section>
-          <section>
-            <h2 style="font-size: 1.2em;">$ diff stateless stateful</h2>
-            <div class="terminal-box" style="font-size: 0.6em; padding: 12px;">
-              <p><span class="cyan kv">Stateless</span> Nothing in memory → DB/Redis = truth</p>
-              <p><span class="yellow kv">Stateful</span> Data in memory → Memory = truth</p>
-              <p style="margin-top: 8px;"><span class="cyan kv">Stateless</span> Crash? No problem, spin new instance</p>
-              <p><span class="yellow kv">Stateful</span> Crash? Data gone, user angry</p>
-              <p style="margin-top: 8px;"><span class="green">Pro tip:</span> Externalize state to Redis/ElastiCache</p>
-            </div>
-          </section>
+          <h2 style="font-size: 1.2em;">$ cat examples/stateless.log</h2>
+          <div class="terminal-box" style="font-size: 0.6em; padding: 12px;">
+            <p class="cyan">// STATELESS: REST API</p>
+            <p class="dim"># Request 1 → Server A</p>
+            <p>GET /api/users/42 → <span class="green">{ id: 42, name: "Bob" }</span></p>
+            <p class="dim"># Request 2 → Server B (different!)</p>
+            <p>GET /api/users/42 → <span class="green">{ id: 42, name: "Bob" }</span></p>
+            <p style="margin-top: 8px;">✓ Token validated each request | ✓ Data from DB | ✓ Any server</p>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="font-size: 1.2em;">$ cat examples/stateful.log</h2>
+          <div class="terminal-box" style="font-size: 0.6em; padding: 12px;">
+            <p class="yellow">// STATEFUL: WebSocket Game Server</p>
+            <p class="dim"># Connection → Server A</p>
+            <p>WS /game/room/abc</p>
+            <p class="dim">In memory: player, room, inventory</p>
+            <p class="red" style="margin-top: 8px;">✗ Server dies → session lost | ✗ Can't migrate | ✗ Sticky sessions</p>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="font-size: 1.2em;">$ diff stateless stateful</h2>
+          <div class="terminal-box" style="font-size: 0.6em; padding: 12px;">
+            <p><span class="cyan kv">Stateless</span> Nothing in memory → DB/Redis = truth</p>
+            <p><span class="yellow kv">Stateful</span> Data in memory → Memory = truth</p>
+            <p style="margin-top: 8px;"><span class="cyan kv">Stateless</span> Crash? No problem, spin new instance</p>
+            <p><span class="yellow kv">Stateful</span> Crash? Data gone, user angry</p>
+            <p style="margin-top: 8px;"><span class="green">Pro tip:</span> Externalize state to Redis/ElastiCache</p>
+          </div>
         </section>
 
         <!-- Stateless Architecture -->
@@ -432,23 +440,22 @@
 
         <!-- Cold Starts -->
         <section>
-          <section>
-            <h2 class="red">$ ./cold-start.sh</h2>
-            <div class="terminal-box">
-              <p class="dim">// The awkward pause before your function responds</p>
-              <br>
-              <p>Loading runtime........<span class="blink">█</span></p>
-            </div>
-          </section>
-          <section>
-            <h2>$ time cold-start --all</h2>
-            <div class="terminal-box">
-              <p><span class="yellow kv">Lambda:</span> 100ms → 10s <span class="dim">(runtime dependent)</span></p>
-              <p><span class="magenta kv">Fargate:</span> 30s → 2min <span class="dim">(image pull)</span></p>
-              <p><span class="cyan kv">EC2:</span> 1min → 5min <span class="dim">(whole OS boot)</span></p>
-            </div>
-            <p class="fragment dim"><br>// Fix: warm pools, optimize images, provisioned concurrency</p>
-          </section>
+          <h2 class="red">$ ./cold-start.sh</h2>
+          <div class="terminal-box">
+            <p class="dim">// The awkward pause before your function responds</p>
+            <br>
+            <p>Loading runtime........<span class="blink">█</span></p>
+          </div>
+        </section>
+
+        <section>
+          <h2>$ time cold-start --all</h2>
+          <div class="terminal-box">
+            <p><span class="yellow kv">Lambda:</span> 100ms → 10s <span class="dim">(runtime dependent)</span></p>
+            <p><span class="magenta kv">Fargate:</span> 30s → 2min <span class="dim">(image pull)</span></p>
+            <p><span class="cyan kv">EC2:</span> 1min → 5min <span class="dim">(whole OS boot)</span></p>
+          </div>
+          <p class="fragment dim"><br>// Fix: warm pools, optimize images, provisioned concurrency</p>
         </section>
 
         <!-- Scaling Patterns -->
