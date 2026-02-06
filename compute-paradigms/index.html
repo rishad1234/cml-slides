@@ -9,8 +9,162 @@
     <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="/node_modules/reveal.js/plugin/highlight/monokai.css" />
     <style>
-      .reveal h1, .reveal h2, .reveal h3 {
+      @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
+      
+      :root {
+        --terminal-green: #00ff00;
+        --terminal-dim: #00aa00;
+        --terminal-bg: #0a0a0a;
+        --terminal-cyan: #00ffff;
+        --terminal-yellow: #ffff00;
+        --terminal-red: #ff5555;
+        --terminal-magenta: #ff55ff;
+      }
+      
+      .reveal {
+        font-family: 'Fira Code', monospace;
+        background-color: var(--terminal-bg);
+      }
+      
+      .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+        font-family: 'Fira Code', monospace;
         text-transform: none;
+        color: var(--terminal-green);
+        text-shadow: 0 0 10px var(--terminal-green);
+      }
+      
+      .reveal p, .reveal li, .reveal td, .reveal th {
+        color: var(--terminal-green);
+      }
+      
+      .reveal .dim {
+        color: var(--terminal-dim);
+      }
+      
+      .reveal .cyan {
+        color: var(--terminal-cyan);
+      }
+      
+      .reveal .yellow {
+        color: var(--terminal-yellow);
+      }
+      
+      .reveal .red {
+        color: var(--terminal-red);
+      }
+      
+      .reveal .magenta {
+        color: var(--terminal-magenta);
+      }
+      
+      .reveal .prompt::before {
+        content: "$ ";
+        color: var(--terminal-cyan);
+      }
+      
+      .reveal .root-prompt::before {
+        content: "# ";
+        color: var(--terminal-red);
+      }
+      
+      .reveal .blink {
+        animation: blink 1s infinite;
+      }
+      
+      @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+      }
+      
+      .reveal .terminal-box {
+        background: #1a1a1a;
+        border: 1px solid var(--terminal-green);
+        border-radius: 5px;
+        padding: 20px;
+        text-align: left;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+      }
+      
+      .reveal .terminal-header {
+        background: #333;
+        margin: -20px -20px 15px -20px;
+        padding: 8px 15px;
+        border-radius: 5px 5px 0 0;
+        display: flex;
+        gap: 8px;
+      }
+      
+      .reveal .terminal-btn {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      
+      .reveal .terminal-btn.red { background: #ff5f56; }
+      .reveal .terminal-btn.yellow { background: #ffbd2e; }
+      .reveal .terminal-btn.green { background: #27ca40; }
+      
+      .reveal table {
+        border-collapse: collapse;
+        font-size: 0.7em;
+        border: 1px solid var(--terminal-dim);
+      }
+      
+      .reveal th, .reveal td {
+        border: 1px solid var(--terminal-dim);
+        padding: 10px;
+      }
+      
+      .reveal th {
+        background: #1a1a1a;
+      }
+      
+      .reveal small {
+        color: var(--terminal-dim);
+      }
+      
+      .reveal .ascii-art {
+        font-size: 0.5em;
+        line-height: 1.2;
+        color: var(--terminal-dim);
+      }
+      
+      .reveal em {
+        color: var(--terminal-dim);
+        font-style: normal;
+      }
+      
+      .reveal strong {
+        color: var(--terminal-cyan);
+        font-weight: 600;
+      }
+      
+      .reveal ul {
+        list-style: none;
+      }
+      
+      .reveal ul li::before {
+        content: "> ";
+        color: var(--terminal-cyan);
+      }
+      
+      .reveal .cursor::after {
+        content: "█";
+        animation: blink 1s infinite;
+      }
+      
+      .reveal .kv {
+        display: inline-block;
+        min-width: 140px;
+      }
+      
+      .reveal .kv-wide {
+        display: inline-block;
+        min-width: 180px;
+      }
+      
+      .reveal table {
+        margin: 0 auto;
       }
     </style>
   </head>
@@ -19,36 +173,349 @@
       <div class="slides">
         <!-- Title Slide -->
         <section>
-          <h1>Compute Paradigms</h1>
-          <p>Your presentation subtitle</p>
+          <pre class="ascii-art">
+   _____ ____  __  __ _____  _    _ _______ ______ 
+  / ____/ __ \|  \/  |  __ \| |  | |__   __|  ____|
+ | |   | |  | | \  / | |__) | |  | |  | |  | |__   
+ | |   | |  | | |\/| |  ___/| |  | |  | |  |  __|  
+ | |___| |__| | |  | | |    | |__| |  | |  | |____ 
+  \_____\____/|_|  |_|_|     \____/   |_|  |______|
+          </pre>
+          <h2 class="cursor">PARADIGMS</h2>
+          <p class="dim">EC2 • Lambda • Fargate</p>
+          <p class="dim"><small>// "it works on my machine" is not a valid deployment strategy</small></p>
         </section>
 
-        <!-- Example Slide -->
+        <!-- Agenda -->
         <section>
-          <h2>Slide 2</h2>
-          <p>Add your content here</p>
+          <h2>$ cat agenda.txt</h2>
+          <div class="terminal-box">
+            <p class="fragment"><span class="dim">01.</span> <span class="cyan">EC2 vs Lambda vs Fargate</span></p>
+            <p class="fragment"><span class="dim">02.</span> <span class="yellow">Stateless vs Stateful</span></p>
+            <p class="fragment"><span class="dim">03.</span> <span class="magenta">When to use each approach</span></p>
+            <p class="fragment"><span class="dim">04.</span> <span class="red">Cold starts & scaling patterns</span></p>
+            <p class="fragment"><span class="dim">05.</span> <span class="green">Why "works on my machine" fails</span></p>
+          </div>
+          <p class="fragment dim"><br>// ~15 min | Questions welcome anytime</p>
         </section>
 
-        <!-- Example Code Slide -->
+        <!-- The Classic Problem -->
         <section>
-          <h2>Code Example</h2>
-          <pre><code class="language-javascript" data-trim>
-function hello() {
-  console.log("Hello, World!");
-}
-          </code></pre>
+          <div class="terminal-box" style="font-size: 0.85em;">
+            <div class="terminal-header">
+              <span class="terminal-btn red"></span>
+              <span class="terminal-btn yellow"></span>
+              <span class="terminal-btn green"></span>
+            </div>
+            <p class="prompt">./deploy.sh --env=local</p>
+            <p class="green">✓ Build successful</p>
+            <p class="green">✓ Tests passed</p>
+            <p class="green">✓ "It works on my machine!"</p>
+            <p class="fragment prompt" style="margin-top: 15px;">./deploy.sh --env=prod</p>
+            <p class="fragment red">✗ ERROR: Everything is on fire</p>
+            <p class="fragment red">✗ CRITICAL: CEO is calling</p>
+            <p class="fragment red">✗ FATAL: Update your LinkedIn</p>
+          </div>
         </section>
 
-        <!-- Vertical Slides Example -->
+        <!-- Why It Works On My Machine Isn't Enough -->
+        <section>
+          <h2>$ cat /reasons/it-fails.log</h2>
+          <div class="terminal-box">
+            <p class="fragment"><span class="cyan">[ENV]</span> Different OS, deps, configs</p>
+            <p class="fragment"><span class="yellow">[VAR]</span> That env variable you forgot</p>
+            <p class="fragment"><span class="red">[MEM]</span> Your machine: 64GB, Prod: 512MB</p>
+            <p class="fragment"><span class="magenta">[DEP]</span> "Just install Node v47 real quick"</p>
+          </div>
+          <p class="fragment dim"><br>// Solution: Reproducible compute environments</p>
+        </section>
+
+        <!-- The Three Musketeers -->
+        <section>
+          <h2>$ ls /aws/compute/</h2>
+          <div style="display: flex; justify-content: space-around; font-size: 1.2em; margin-top: 40px;">
+            <div class="fragment terminal-box" style="padding: 30px;">
+              <p class="cyan">drwxr-xr-x</p>
+              <p><strong>EC2/</strong></p>
+              <p class="dim">// The OG</p>
+            </div>
+            <div class="fragment terminal-box" style="padding: 30px;">
+              <p class="yellow">-rwxr-xr-x</p>
+              <p><strong>Lambda</strong></p>
+              <p class="dim">// The Hipster</p>
+            </div>
+            <div class="fragment terminal-box" style="padding: 30px;">
+              <p class="magenta">drwxr-xr-x</p>
+              <p><strong>Fargate/</strong></p>
+              <p class="dim">// Goldilocks</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- EC2 -->
         <section>
           <section>
-            <h2>Vertical Slides</h2>
-            <p>Press down to navigate</p>
+            <h2>$ man ec2</h2>
+            <div class="terminal-box">
+              <p><strong>NAME</strong></p>
+              <p style="margin-left: 20px;">ec2 - Elastic Compute Cloud</p>
+              <br>
+              <p><strong>DESCRIPTION</strong></p>
+              <p style="margin-left: 20px;" class="dim">"Here's a computer. Good luck."</p>
+            </div>
           </section>
           <section>
-            <h2>Nested Slide</h2>
-            <p>This is a vertical slide</p>
+            <h2>$ ec2 --describe</h2>
+            <div class="terminal-box">
+              <p class="fragment"><span class="cyan kv">--control</span> Full (and full responsibility)</p>
+              <p class="fragment"><span class="cyan kv">--patches</span> Your problem</p>
+              <p class="fragment"><span class="cyan kv">--uptime</span> 24/7 (wallet.drain())</p>
+              <p class="fragment"><span class="cyan kv">--use-case</span> "I need SSH, don't ask"</p>
+            </div>
           </section>
+        </section>
+
+        <!-- Lambda -->
+        <section>
+          <section>
+            <h2>$ man lambda</h2>
+            <div class="terminal-box">
+              <p><strong>NAME</strong></p>
+              <p style="margin-left: 20px;">lambda - Serverless Functions</p>
+              <br>
+              <p><strong>DESCRIPTION</strong></p>
+              <p style="margin-left: 20px;" class="dim">"Servers exist. You just pretend they don't."</p>
+            </div>
+          </section>
+          <section>
+            <h2>$ lambda --describe</h2>
+            <div class="terminal-box">
+              <p class="fragment"><span class="yellow kv">--billing</span> Per 1ms (seriously)</p>
+              <p class="fragment"><span class="yellow kv">--scale</span> ∞* <span class="dim">(*T&C apply)</span></p>
+              <p class="fragment"><span class="yellow kv">--timeout</span> 15min max, then death</p>
+              <p class="fragment"><span class="yellow kv">--use-case</span> Event-driven, bursty loads</p>
+            </div>
+          </section>
+        </section>
+
+        <!-- Fargate -->
+        <section>
+          <section>
+            <h2>$ man fargate</h2>
+            <div class="terminal-box">
+              <p><strong>NAME</strong></p>
+              <p style="margin-left: 20px;">fargate - Serverless Containers</p>
+              <br>
+              <p><strong>DESCRIPTION</strong></p>
+              <p style="margin-left: 20px;" class="dim">"docker run, but make it someone else's problem"</p>
+            </div>
+          </section>
+          <section>
+            <h2>$ fargate --describe</h2>
+            <div class="terminal-box">
+              <p class="fragment"><span class="magenta kv">--servers</span> None (for you)</p>
+              <p class="fragment"><span class="magenta kv">--input</span> Your Dockerfile</p>
+              <p class="fragment"><span class="magenta kv">--timeout</span> None. Run forever.</p>
+              <p class="fragment"><span class="magenta kv">--use-case</span> Lambda too short, EC2 too much</p>
+            </div>
+          </section>
+        </section>
+
+        <!-- Comparison Table -->
+        <section>
+          <h2>$ diff ec2 lambda fargate</h2>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th class="cyan">EC2</th>
+                <th class="yellow">Lambda</th>
+                <th class="magenta">Fargate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Control</td>
+                <td>root@</td>
+                <td>none</td>
+                <td>container</td>
+              </tr>
+              <tr>
+                <td>Scale</td>
+                <td>manual/ASG</td>
+                <td>auto-magic</td>
+                <td>auto</td>
+              </tr>
+              <tr>
+                <td>Billing</td>
+                <td>always-on</td>
+                <td>per-req</td>
+                <td>per-task</td>
+              </tr>
+              <tr>
+                <td>Cold Start</td>
+                <td>~minutes</td>
+                <td>ms→seconds</td>
+                <td>~seconds</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Stateless vs Stateful -->
+        <section>
+          <h2>$ cat /arch/state.md</h2>
+          <div style="display: flex; justify-content: space-around; margin-top: 20px; font-size: 0.85em;">
+            <div class="fragment terminal-box" style="padding: 15px;">
+              <p class="cyan">## STATELESS</p>
+              <p class="dim">// Finding Nemo brain</p>
+              <p style="margin-top: 10px;">> No memory</p>
+              <p>> Easy to scale</p>
+              <p>> Kill without guilt</p>
+            </div>
+            <div class="fragment terminal-box" style="padding: 15px;">
+              <p class="yellow">## STATEFUL</p>
+              <p class="dim">// Elephant brain</p>
+              <p style="margin-top: 10px;">> Remembers things</p>
+              <p>> Sticky sessions</p>
+              <p>> Hard to scale</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Stateless vs Stateful Examples -->
+        <section>
+          <section>
+            <h2 style="font-size: 1.2em;">$ cat examples/stateless.log</h2>
+            <div class="terminal-box" style="font-size: 0.6em; padding: 12px;">
+              <p class="cyan">// STATELESS: REST API</p>
+              <p class="dim"># Request 1 → Server A</p>
+              <p>GET /api/users/42 → <span class="green">{ id: 42, name: "Bob" }</span></p>
+              <p class="dim"># Request 2 → Server B (different!)</p>
+              <p>GET /api/users/42 → <span class="green">{ id: 42, name: "Bob" }</span></p>
+              <p style="margin-top: 8px;">✓ Token validated each request | ✓ Data from DB | ✓ Any server</p>
+            </div>
+          </section>
+          <section>
+            <h2 style="font-size: 1.2em;">$ cat examples/stateful.log</h2>
+            <div class="terminal-box" style="font-size: 0.6em; padding: 12px;">
+              <p class="yellow">// STATEFUL: WebSocket Game Server</p>
+              <p class="dim"># Connection → Server A</p>
+              <p>WS /game/room/abc</p>
+              <p class="dim">In memory: player, room, inventory</p>
+              <p class="red" style="margin-top: 8px;">✗ Server dies → session lost | ✗ Can't migrate | ✗ Sticky sessions</p>
+            </div>
+          </section>
+          <section>
+            <h2 style="font-size: 1.2em;">$ diff stateless stateful</h2>
+            <div class="terminal-box" style="font-size: 0.6em; padding: 12px;">
+              <p><span class="cyan kv">Stateless</span> Nothing in memory → DB/Redis = truth</p>
+              <p><span class="yellow kv">Stateful</span> Data in memory → Memory = truth</p>
+              <p style="margin-top: 8px;"><span class="cyan kv">Stateless</span> Crash? No problem, spin new instance</p>
+              <p><span class="yellow kv">Stateful</span> Crash? Data gone, user angry</p>
+              <p style="margin-top: 8px;"><span class="green">Pro tip:</span> Externalize state to Redis/ElastiCache</p>
+            </div>
+          </section>
+        </section>
+
+        <!-- Stateless Architecture -->
+        <section>
+          <h2>$ sudo rm -rf /state/*</h2>
+          <div class="terminal-box" style="font-size: 0.85em;">
+            <p>Stateless apps are like goldfish:</p>
+            <p class="fragment" style="margin-top: 12px;"><span class="cyan">[1]</span> No memory of previous requests</p>
+            <p class="fragment"><span class="cyan">[2]</span> Store state elsewhere (DB/Redis/S3)</p>
+            <p class="fragment"><span class="cyan">[3]</span> Any instance handles any request</p>
+            <p class="fragment"><span class="cyan">[4]</span> kill -9 without drama</p>
+          </div>
+        </section>
+
+        <!-- Cold Starts -->
+        <section>
+          <section>
+            <h2 class="red">$ ./cold-start.sh</h2>
+            <div class="terminal-box">
+              <p class="dim">// The awkward pause before your function responds</p>
+              <br>
+              <p>Loading runtime........<span class="blink">█</span></p>
+            </div>
+          </section>
+          <section>
+            <h2>$ time cold-start --all</h2>
+            <div class="terminal-box">
+              <p><span class="yellow kv">Lambda:</span> 100ms → 10s <span class="dim">(runtime dependent)</span></p>
+              <p><span class="magenta kv">Fargate:</span> 30s → 2min <span class="dim">(image pull)</span></p>
+              <p><span class="cyan kv">EC2:</span> 1min → 5min <span class="dim">(whole OS boot)</span></p>
+            </div>
+            <p class="fragment dim"><br>// Fix: warm pools, optimize images, provisioned concurrency</p>
+          </section>
+        </section>
+
+        <!-- Scaling Patterns -->
+        <section>
+          <h2>$ top --scaling</h2>
+          <div class="terminal-box">
+            <p class="fragment"><span class="cyan kv">HORIZONTAL</span> More instances <span class="dim">(the way)</span></p>
+            <p class="fragment"><span class="yellow kv">VERTICAL</span> Bigger instance <span class="dim">(the $ way)</span></p>
+            <p class="fragment"><span class="magenta kv">LAMBDA</span> "What's scaling?" <span class="dim">(auto)</span></p>
+          </div>
+          <p class="fragment"><br><span class="dim">// Pro tip:</span> <span class="red">Vertical scaling = ur doing it wrong</span></p>
+        </section>
+
+        <!-- When to Use What -->
+        <section>
+          <h2>$ which compute</h2>
+          <div class="terminal-box">
+            <p><span class="cyan kv">EC2</span> → Legacy, GPU, "I need sudo"</p>
+            <p><span class="yellow kv">Lambda</span> → APIs, events, cron, &lt;15min</p>
+            <p><span class="magenta kv">Fargate</span> → Microservices, batch, containers</p>
+          </div>
+        </section>
+
+        <!-- Decision Flowchart -->
+        <section>
+          <h2>$ ./decide.sh</h2>
+          <div class="terminal-box">
+            <p class="fragment"><span class="kv-wide">Need root access?</span> → <span class="cyan">goto EC2</span></p>
+            <p class="fragment"><span class="kv-wide">Short, event-driven?</span> → <span class="yellow">goto Lambda</span></p>
+            <p class="fragment"><span class="kv-wide">Have Dockerfiles?</span> → <span class="magenta">goto Fargate</span></p>
+            <p class="fragment"><span class="kv-wide">Still confused?</span> → <span class="yellow">goto Lambda</span></p>
+          </div>
+        </section>
+
+        <!-- Summary -->
+        <section>
+          <h2>$ cat README.md | head</h2>
+          <div class="terminal-box">
+            <p><span class="cyan kv">EC2</span> Max control, max responsibility</p>
+            <p><span class="yellow kv">Lambda</span> Pay-per-use, auto-scale, limits</p>
+            <p><span class="magenta kv">Fargate</span> Best of both for containers</p>
+            <p><span class="green kv">Stateless</span> The way to scale</p>
+            <p><span class="red kv">Cold</span> Know them. Plan for them.</p>
+          </div>
+        </section>
+
+        <!-- Final Slide -->
+        <section>
+          <div class="terminal-box">
+            <p class="prompt">echo $DEPLOYMENT_STRATEGY</p>
+            <br>
+            <p class="fragment"><span class="red">ERROR:</span> "works on my machine"</p>
+            <p class="fragment"><span class="red">!==</span></p>
+            <p class="fragment"><span class="green">"works"</span></p>
+            <br>
+            <p class="fragment dim">// That's why containers & DevOps exist</p>
+          </div>
+        </section>
+
+        <!-- Questions -->
+        <section>
+          <h2 class="cursor">$ await questions()</h2>
+          <p class="dim">// Press Ctrl+C to exit</p>
+          <br><br><br>
+          <p style="font-size: 0.45em;" class="dim">
+            © 2026 rishad1234 | <a href="https://github.com/rishad1234/cml-slides" target="_blank" style="color: var(--terminal-cyan);">github.com/rishad1234/cml-slides</a>
+          </p>
         </section>
       </div>
     </div>
