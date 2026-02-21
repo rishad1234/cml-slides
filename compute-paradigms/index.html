@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Compute Paradigms</title>
     <link rel="stylesheet" href="/node_modules/reveal.js/dist/reveal.css" />
-    <link rel="stylesheet" href="/node_modules/reveal.js/dist/theme/black.css" />
+    <link rel="stylesheet" href="/node_modules/reveal.js/dist/theme/white.css" />
     <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="/node_modules/reveal.js/plugin/highlight/monokai.css" />
     <style>
@@ -170,11 +170,104 @@
         margin: 0 auto;
       }
       
-      /* Print styles */
+      /* Print styles for ?print-pdf export */
       @media print {
         * {
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
+        }
+
+        /* Show ALL fragments in print */
+        .reveal .slides section .fragment {
+          opacity: 1 !important;
+          visibility: visible !important;
+          transform: none !important;
+        }
+
+        /* Page layout */
+        .reveal .slides section {
+          page-break-inside: avoid;
+        }
+
+        /* Hide Reveal.js background layer — causes blank pages in print */
+        .reveal .backgrounds {
+          display: none !important;
+        }
+
+        /* Ensure white backgrounds — kill all black pages */
+        html, body,
+        .reveal-viewport,
+        .reveal,
+        .reveal .slides,
+        .reveal .slides section,
+        .pdf-page {
+          background: #ffffff !important;
+          background-color: #ffffff !important;
+        }
+
+        /* Disable animations */
+        .reveal .blink, .reveal .cursor::after {
+          animation: none !important;
+          opacity: 1 !important;
+        }
+
+        /* Terminal boxes print cleanly */
+        .reveal .terminal-box {
+          background: #f8f8f8 !important;
+          border: 1.5px solid #333 !important;
+          padding: 12px !important;
+          box-shadow: none !important;
+        }
+
+        .reveal .terminal-header {
+          background: #e8e8e8 !important;
+          margin: -12px -12px 10px -12px !important;
+          padding: 6px 10px !important;
+        }
+
+        /* Ensure all text colors print */
+        .reveal .cyan, .reveal strong { color: #0077aa !important; }
+        .reveal .yellow { color: #aa7700 !important; }
+        .reveal .red { color: #cc3333 !important; }
+        .reveal .magenta { color: #8800aa !important; }
+        .reveal .green { color: #0a6e0a !important; }
+        .reveal .dim, .reveal em, .reveal small { color: #666666 !important; }
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4,
+        .reveal p, .reveal li, .reveal td, .reveal th { color: #1a1a1a !important; }
+
+        /* Table borders */
+        .reveal table {
+          border: 1.5px solid #333 !important;
+        }
+        .reveal th, .reveal td {
+          border: 1px solid #999 !important;
+        }
+        .reveal th {
+          background: #f0f0f0 !important;
+        }
+
+        /* Links print visible */
+        .reveal a {
+          color: #0077aa !important;
+          text-decoration: underline !important;
+        }
+
+        /* ASCII art fix */
+        .reveal .ascii-art {
+          background: transparent !important;
+          box-shadow: none !important;
+          color: #1a1a1a !important;
+        }
+
+        /* Flex containers preserve layout */
+        .reveal section > div[style*="flex"] {
+          display: flex !important;
+          gap: 15px;
+        }
+
+        /* Tighter spacing for print */
+        .reveal .slides section {
+          font-size: 0.85em;
         }
       }
     </style>
